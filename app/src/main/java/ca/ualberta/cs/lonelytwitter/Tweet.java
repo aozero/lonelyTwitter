@@ -1,5 +1,6 @@
 package ca.ualberta.cs.lonelytwitter;
 
+import java.io.IOException;
 import java.util.Date;
 
 /**
@@ -10,12 +11,12 @@ public abstract class Tweet implements Tweetable {
     protected Date date;
 
     // Constructors
-    public Tweet(String tweet, Date date) {
+    public Tweet(String tweet, Date date) throws IOException {
         this.setText(tweet);
         this.date = date;
     }
 
-    public Tweet(String tweet) {
+    public Tweet(String tweet) throws IOException {
         this.setText(tweet);
         this.date = new Date(); // defaults to current date
     }
@@ -25,10 +26,12 @@ public abstract class Tweet implements Tweetable {
         return text;
     }
 
-    public void setText(String text) {
+    public void setText(String text) throws IOException {
         // Max tweet length to 140 chars
         if (text.length() <= 140) {
             this.text = text;
+        } else {
+            throw new IOException("Tweet was too long!");
         }
     }
 
