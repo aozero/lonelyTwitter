@@ -1,6 +1,7 @@
 package ca.ualberta.cs.lonelytwitter;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -9,6 +10,7 @@ import java.util.Date;
 public abstract class Tweet implements Tweetable {
     private String text;
     protected Date date;
+    protected ArrayList<CurrentMood> moodList;
 
     // Constructors
     public Tweet(String tweet, Date date) throws IOException {
@@ -41,6 +43,14 @@ public abstract class Tweet implements Tweetable {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public ArrayList<CurrentMood> getMoodList() {
+        return moodList;
+    }
+
+    public void setMoodList(ArrayList<CurrentMood> moodList) {
+        this.moodList = moodList;
     }
 
     public abstract Boolean isImportant();
