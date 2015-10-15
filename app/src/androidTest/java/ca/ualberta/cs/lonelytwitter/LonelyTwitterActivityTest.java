@@ -3,13 +3,11 @@ package ca.ualberta.cs.lonelytwitter;
 import android.app.Activity;
 import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
-import android.test.TouchUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import junit.framework.TestCase;
 
 /**
  * Created by wz on 14/09/15.
@@ -37,7 +35,6 @@ public class LonelyTwitterActivityTest extends ActivityInstrumentationTestCase2 
         // Add a tweet using the UI
         bodyText = activity.getBodyText();
         activity.runOnUiThread(new Runnable() {
-            //private EditText bodyText;
             public void run() {
                 bodyText.setText("test tweet");
             }
@@ -46,7 +43,6 @@ public class LonelyTwitterActivityTest extends ActivityInstrumentationTestCase2 
 
         saveButton = activity.getSaveButton();
         activity.runOnUiThread(new Runnable() {
-            //private Button saveButton;
             public void run() {
                 saveButton.performClick();
             }
@@ -59,7 +55,6 @@ public class LonelyTwitterActivityTest extends ActivityInstrumentationTestCase2 
         assertEquals("test tweet", tweet.getText());
 
         // Ensure the tweet editor activity starts up
-
         // Set up an ActivityMonitor
         Instrumentation.ActivityMonitor receiverActivityMonitor =
                 getInstrumentation().addMonitor(EditTweetActivity.class.getName(),
@@ -75,6 +70,8 @@ public class LonelyTwitterActivityTest extends ActivityInstrumentationTestCase2 
         getInstrumentation().waitForIdleSync();
 
         // Validate that ReceiverActivity is started
+        // https://developer.android.com/training/activity-testing/activity-functional-testing.html
+        // 2015-10-14
         EditTweetActivity receiverActivity = (EditTweetActivity)
                 receiverActivityMonitor.waitForActivityWithTimeout(1000);
         assertNotNull("ReceiverActivity is null", receiverActivity);
